@@ -1,0 +1,27 @@
+ion-label.sort {
+    font-weight: 600;
+}
+
+ion-label.sortable {
+    cursor: pointer;
+}
+
+#filter {
+    font-size: small;
+    padding-bottom: 10px;
+    cursor: pointer;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+#select-all {
+    width: 61px;
+
+    ion-checkbox {
+        position: absolute;
+        top: 0px;
+        left: 16px;
+    }
+}

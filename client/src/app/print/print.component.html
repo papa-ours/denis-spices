@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Imprimer
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="ready && numberOfPages">
+      <ion-button (click)="changePage(-1)" [disabled]="currentPage===0">
+        <ion-icon slot="icon-only" name="caret-back-circle"></ion-icon>
+      </ion-button>
+      <ion-text>
+        <p>{{(currentPage + 1) + '/' + numberOfPages}}</p>
+      </ion-text>
+      <ion-button (click)="changePage(1)" [disabled]="(currentPage + 1)===numberOfPages">
+        <ion-icon slot="icon-only" name="caret-forward-circle"></ion-icon>
+      </ion-button>
+      <ion-button color="danger" (click)="ready=false">
+        <ion-icon slot="icon-only" name="close-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list *ngIf="!ready; else preview">
+    <ion-item *ngIf="qualityWarning" color="danger">
+      <ion-icon slot="start" name="alert-circle"></ion-icon>
+      <ion-label>La qualité du résultat sera meilleure sur un ordinateur.</ion-label>
+      <ion-button slot="end" (click)="qualityWarning=false" fill="clear" color="dark">
+        OK
+      </ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-label>Commencer à partir de </ion-label>
+      <ion-input type="number" min="0" [(ngModel)]="indexOffset"></ion-input>
+    </ion-item>
+    <!-- <ion-item>
+      <ion-label>Forme</ion-label>
+      <ion-icon [name]="shape == 'circle' ? 'ellipse' : 'ellipse-outline'" (click)="shape='circle'"></ion-icon>
+      <ion-icon [name]="shape == 'rect' ? 'square' : 'square-outline'" (click)="shape='rect'"></ion-icon>
+    </ion-item> -->
+    <ion-item *ngIf="templateNames">
+      <ion-label>Gabarit</ion-label>
+      <ion-select multiple="false" placeholder="Sélectionnez un gabarit" interface="popover" [(ngModel)]="selectedTemplateIndex">
+        <ion-select-option *ngFor="let name of templateNames; index as i" [value]="i">{{name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <ng-template #preview>
+    <img id="preview" [src]="previewData[currentPage].safeUrl"/>
+  </ng-template>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="ready ? save(currentPage) : generate()" expand="block">
+      <ion-spinner *ngIf="loading" name="lines-small"></ion-spinner>
+      {{ready ? 'Sauvegarder (' + (currentPage + 1) + '/' + numberOfPages + ')' : 'Générer'}}
+    </ion-button>
+    <ion-button (click)="dismiss()" fill="clear" color="danger" expand="block">
+      Fermer
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

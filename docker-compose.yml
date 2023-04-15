@@ -1,0 +1,36 @@
+version: "3"
+
+networks:
+    api_server_default:
+        external: true
+services:
+    nginx:
+        build:
+          context: ./nginx
+          dockerfile: Dockerfile
+        ports:
+          - 80:80
+        networks:
+          - back-end
+        links:
+          - server
+          - client
+
+    server:
+        build:
+            context: ./server
+            dockerfile: ./Dockerfile
+        networks:
+            - back-end
+
+    client:
+        build:
+            context: ./client
+            dockerfile: ./Dockerfile
+        networks:
+            - back-end
+        volumes:
+            - ./client/src:/usr/src/client/src
+    
+networks:
+    back-end:

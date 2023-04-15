@@ -1,0 +1,7 @@
+{
+  "name": "denis-spices",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

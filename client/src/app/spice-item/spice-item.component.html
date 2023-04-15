@@ -1,0 +1,29 @@
+  
+<ion-item-sliding>
+  <ion-item (click)="selectEvent.emit()">
+    <ion-checkbox slot="start" [checked]="spice.selected"></ion-checkbox>
+    <ion-label>{{spice.label}}</ion-label>
+    <ion-label>{{spice.type.label}}</ion-label>
+    <!-- <ion-label class="printed-col">
+      <ion-icon size="large" [name]="printed[0] == '1' ? 'ellipse' : 'ellipse-outline'"></ion-icon>
+      <ion-icon size="large" [name]="printed[1] == '1' ? 'square' : 'square-outline'"></ion-icon>
+    </ion-label> -->
+    <ion-thumbnail *ngIf="imageSource !== '-1'; else loader" slot="end">
+      <img *ngIf="imageSource" src={{imageSource}}/>
+    </ion-thumbnail>
+    <ng-template #loader>
+      <ion-spinner name="lines-small"></ion-spinner>
+    </ng-template>
+  </ion-item>
+  <ion-item-options side="start">
+    <ion-item-option (click)="showEditModal()">
+      <ion-icon size="large" name="pencil"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+
+  <ion-item-options side="end">
+    <ion-item-option color="danger" (click)="showDeleteConfirm()">
+      <ion-icon size="large" name="trash"></ion-icon>
+    </ion-item-option>
+  </ion-item-options>
+</ion-item-sliding>

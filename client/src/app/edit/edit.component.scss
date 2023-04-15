@@ -1,0 +1,56 @@
+ion-spinner * {
+    width: 8px;
+    height: 8px;
+}
+
+img {
+    width: 60px;
+    margin: auto;
+    cursor: pointer;
+    &:hover {
+        opacity: 80%;
+    }
+
+    &.selected {
+        border: solid 2px var(--ion-color-primary);
+        height: 59.5px;
+    }
+}
+
+.images-container {
+    display: flex;
+    flex-direction: row;
+    align-content: flex-start;
+    height: 110px;
+}
+
+ion-radio-group ion-item {
+    --inner-padding-top: 0px;
+    --inner-padding-bottom: 0px;
+}
+
+.image-item {
+    position: absolute;
+    top: 0px;
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+    text-align: center;
+    justify-content: baseline;
+    align-content: flex-start;
+
+    p {
+        max-width: 75px;
+        flex-wrap: wrap;
+        text-overflow: ellipsis;
+        max-height: 24px;
+    }
+}
+
+.custom-modal .modal-container {
+    height: fit-content;
+}
+
+.image-label {
+    cursor: pointer;
+}

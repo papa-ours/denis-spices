@@ -1,0 +1,14 @@
+ion-input.small {
+    max-width: 60px;
+    float: right;
+    position: relative;
+    right: 0px;
+}
+
+#preview {
+    margin: auto;
+}
+
+ion-col.field-col:nth-of-type(1) {
+    border-right: solid 1px var(--ion-color-light-shade);
+}

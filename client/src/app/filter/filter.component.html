@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Filtrer</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label position="start">
+        <ion-icon size="large" slot="start" name="search-circle"></ion-icon>
+      </ion-label>
+      <ion-input name="label" [(ngModel)]="labelFilter" type="text" placeholder="Entrer le filtre"></ion-input>
+    </ion-item>
+
+    <!-- <ion-item (click)="nonPrinted = !nonPrinted">
+      <ion-label>Non imprimé</ion-label>
+      <ion-checkbox slot="start" [checked]="nonPrinted"></ion-checkbox>
+    </ion-item> -->
+    
+    <ion-list>
+      <ion-item (click)="allSelected ? deselectAll() : selectAll()">
+        <ion-title>Type</ion-title>
+        <ion-checkbox slot="start" [checked]="allSelected"></ion-checkbox>
+      </ion-item>
+      <ion-item *ngFor="let type of spiceTypes" (click)="toggleType(type.value)">
+        <ion-label>{{type.label}}</ion-label>
+        <ion-checkbox slot="start" [checked]="isSelected(type.value)"></ion-checkbox>
+      </ion-item>
+    </ion-list>
+  </ion-list>
+
+  <ion-item>
+    <ion-label>Provenance</ion-label>
+      <ion-item>
+      <ion-label>Épices de cru</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="epicesDeCru"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Autres</ion-label>
+      <ion-checkbox slot="start" [(ngModel)]="others"></ion-checkbox>
+    </ion-item>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Appartient à</ion-label>
+    <ion-select [(ngModel)]="owner" interface="popover">
+      <ion-select-option value="Denis">Denis</ion-select-option>
+      <ion-select-option value="Vincent">Vincent</ion-select-option>
+      <ion-select-option value="Luc">Luc</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Imprimé sur</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let templateName of templateNames" (click)="toggleToPrint(templateName, selectedPrinted)">
+      <ion-label>{{templateName}}</ion-label>
+      <ion-checkbox slot="start" [checked]="selectedPrinted.indexOf(templateName) !== -1"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>À imprimer sur</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let templateName of templateNames" (click)="toggleToPrint(templateName, selectedToPrint)">
+      <ion-label>{{templateName}}</ion-label>
+      <ion-checkbox slot="start" [checked]="selectedToPrint.indexOf(templateName) !== -1"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>  
+<ion-footer>
+  <ion-toolbar>
+    <ion-button class="ion-float-right" color="primary" (click)="onSubmit()">
+      OK
+    </ion-button>
+    <ion-button class="ion-float-right" fill="clear" color="danger" (click)="dismiss()">
+      Annuler
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
