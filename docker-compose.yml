@@ -1,8 +1,5 @@
 version: "3"
 
-networks:
-    api_server_default:
-        external: true
 services:
     nginx:
         build:
