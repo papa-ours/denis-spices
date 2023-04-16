@@ -3,12 +3,15 @@ from spice_db_handler import SpiceDBHandler
 import os
 import glob
 import base64
+from pathlib import Path
 
 class ImageFinder:
     BASE_URL = 'https://epicesdecru.com/products/epices/'
     IMAGE_URL = 'https://epicesdecru.com//upload/products/'
     EXTENSION = '.jpg'
     SEARCH_URL = 'https://epicesdecru.com/search/results?q='
+    
+    IMAGE_DIR = os.path.join('assets', 'spices')
 
     @staticmethod
     def get_guess_functions():
@@ -43,8 +46,14 @@ class ImageFinder:
         return ImageFinder.find_images(ImageFinder.SEARCH_URL + ImageFinder.get_guess_functions()[0](label), 7)
 
     @staticmethod
+    def create_folder():
+        Path(ImageFinder.IMAGE_DIR).mkdir(parents=True, exist_ok=True)
+
+    @staticmethod
     def create_image_file(_id):
-        prefix = "assets/spices/" + _id
+        ImageFinder.create_folder()
+        
+        prefix = os.path.join(ImageFinder.IMAGE_DIR, _id)
         image_type = 'jpg'
         files = glob.glob(prefix + "*")
         if len(files) == 0:
